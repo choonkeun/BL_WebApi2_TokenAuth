@@ -1,0 +1,40 @@
+
+EmployeeID  LastName             FirstName  ReportsTo
+----------- -------------------- ---------- -----------
+1           Davolio              Nancy      2
+2           Fuller               Andrew     1   Admin
+3           Leverling            Janet      2
+4           Peacock              Margaret   2
+5           Buchanan             Steven     1   Admin
+6           Suyama               Michael    5
+7           King                 Robert     5
+8           Callahan             Laura      2
+9           Dodsworth            Anne       5
+
+PM> Install-Package Microsoft.Web.Infrastructure -Version 1.0.0
+
+
+Test step 1 : for all - test web api 2 is working
+http://localhost:25419/api/data/forall
+Content-Type: application/json; charset=utf-8
+
+
+Test step 2 : for all - test web api 2 is working
+http://localhost:25419/api/data/authenticate    - 401 Error
+http://localhost:25419/api/data/authorize       - 401 Error
+
+
+Test step 3 : get Token - user level
+POST http://localhost:25419/token
+Content-Type: x-www-form-urlencoded
+username=user&password=user&grant_type=password
+username=Davolio&password=Nancy&grant_type=password
+
+{"access_token":"Zi8n6TeA0oz8L0ykhC4UFNHzHRmXQCC3GY2Q80OAmks1NKJl7kRXNgeAiqG9iL7yJolSGwxpq5flUn2EckkL8jbesCiTHCbLTzxOafWqoq2v0ulVrQE2rmxAYH8st-jLCrvG_mClPiVsd9XFN9r1F60Qy-9_SzXAvVp_TzwxIUHrioZgIj5dCym-4M3CrvlmaH1tyso-F9hLd6lAWWnR_tT2QRlG_1C8OCtGYCAWiuqTG7kCVNXNNTPJ4vMsmxxqt_UMpXD1cZfuw4331t9dYctb8yk_2Dv7VNVCyL8d-QwU1xHoZBEiSnzA5K9sRoLD","token_type":"bearer","expires_in":86399}
+{"access_token":"mh2n7n3AJh-qPnujDPLy5vMJHPiar2W34DpAKPNVNi_QwNUzGW7JKsyTN7YBLi_ctRjDXEEXhsBqPhhpzo7mKe6UmRhgQ2gBgwkB5khKfdzZLmcH2d2mv4Oq8FiMDZPXI_ejzppqlIC38PiuZnJWMshY7cH-EmQryWqM37w8G4r-CUzPUGkY-A9d-kPoMqcRZdagjlqa15yG6KFRlnuw_8z41kBDNSVB4Fb3INtfynOPz92m7I-GNnLaAJuKLHR4A_ScUW3xelI9TDBUKhjAG19MreBPGOtqP_NgM6RsYzanHf64RDlirphBkORa51izUVNjAZjR8_1PmcfiOe5UbA","token_type":"bearer","expires_in":86399}
+
+Test step 4 : authenticate - user level
+GET http://localhost:25419/api/data/authenticate
+Authorization: bearer Zi8n6TeA0oz8L0ykhC4UFNHzHRmXQCC3GY2Q80OAmks1NKJl7kRXNgeAiqG9iL7yJolSGwxpq5flUn2EckkL8jbesCiTHCbLTzxOafWqoq2v0ulVrQE2rmxAYH8st-jLCrvG_mClPiVsd9XFN9r1F60Qy-9_SzXAvVp_TzwxIUHrioZgIj5dCym-4M3CrvlmaH1tyso-F9hLd6lAWWnR_tT2QRlG_1C8OCtGYCAWiuqTG7kCVNXNNTPJ4vMsmxxqt_UMpXD1cZfuw4331t9dYctb8yk_2Dv7VNVCyL8d-QwU1xHoZBEiSnzA5K9sRoLD
+
+Authorization: bearer mh2n7n3AJh-qPnujDPLy5vMJHPiar2W34DpAKPNVNi_QwNUzGW7JKsyTN7YBLi_ctRjDXEEXhsBqPhhpzo7mKe6UmRhgQ2gBgwkB5khKfdzZLmcH2d2mv4Oq8FiMDZPXI_ejzppqlIC38PiuZnJWMshY7cH-EmQryWqM37w8G4r-CUzPUGkY-A9d-kPoMqcRZdagjlqa15yG6KFRlnuw_8z41kBDNSVB4Fb3INtfynOPz92m7I-GNnLaAJuKLHR4A_ScUW3xelI9TDBUKhjAG19MreBPGOtqP_NgM6RsYzanHf64RDlirphBkORa51izUVNjAZjR8_1PmcfiOe5UbA
